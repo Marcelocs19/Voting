@@ -28,7 +28,7 @@ public class SessionService {
 	private ScheduleRepository scheduleRepository;
 
 	public List<SessionResponse> listAllOpenSessions() {
-		log.info("method = listAllOpenSessions");
+		log.info("method = listAllOpenSessions");		
 		return sessionRepository.findByStatus(Status.OPEN).stream()
 				.map(session -> new SessionResponse(session.getSessionId(), session.getMeetingDate(),
 						session.getSchedules(), session.getDuration(), session.getStatus()))
