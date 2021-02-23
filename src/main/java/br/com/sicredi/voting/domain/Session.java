@@ -30,10 +30,10 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @EqualsAndHashCode(of="sessionId", callSuper = false)
-@Builder
 @Setter
+@Getter
+@Builder
 @Entity 
 @Table(name = "TB_SESSAO")
 public class Session {
@@ -47,8 +47,8 @@ public class Session {
     private LocalDateTime meetingDate;
     
 	@JsonIgnore
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, fetch = FetchType.EAGER)    
-    private List<Schedule> schedule;
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)    
+    private List<Schedule> schedules;
 
     @Column(name = "DURACAO", nullable = false)
     private Long duration;
@@ -57,24 +57,29 @@ public class Session {
     @Column(name = "STATUS", nullable = false)
     private Status status;
 
-    public static Session of(SessionRequest request) {        
-        return Session.builder()
+    public static Session of(SessionRequest request, List<Schedule> schedule) {        
+        Session session = Session.builder()
         .duration(request.getDuration())
         .meetingDate(request.getDate())
         .status(Status.OPEN)
-        .schedule(new ArrayList<>())
+        .schedules(new ArrayList<>())
         .build();
+        session.addSchedule(schedule);
+        return session;
     }
 
     public void addSchedule(List<Schedule> schedule) {
-        this.schedule.addAll(schedule);
+        schedule.forEach(s -> {
+            s.setSession(this);
+            this.schedules.add(s);
+        });
     }
 
     public SessionResponse toDto() {
         return SessionResponse.builder()
         .sessionId(this.sessionId)
         .meetingDate(this.meetingDate)
-        .schedule(this.schedule)
+        .schedule(this.schedules)
         .duration(this.duration)
         .status(this.status)
         .build();
