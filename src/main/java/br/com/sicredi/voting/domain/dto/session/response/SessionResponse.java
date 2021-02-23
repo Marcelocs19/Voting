@@ -5,10 +5,14 @@ import java.util.List;
 
 import br.com.sicredi.voting.domain.Schedule;
 import br.com.sicredi.voting.domain.enums.Status;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Setter
 @Getter
 @Builder
@@ -23,17 +27,5 @@ public class SessionResponse {
     private Long duration;
 
     private Status status;
-
-    public SessionResponse() {
-    }
-
-    public SessionResponse(Long sessionId, LocalDateTime meetingDate, List<Schedule> schedule, Long duration,
-            Status status) {
-        this.sessionId = sessionId;
-        this.meetingDate = meetingDate;
-        this.schedule = schedule;
-        this.duration = duration;
-        this.status = status;
-    }
-
+   
 }
