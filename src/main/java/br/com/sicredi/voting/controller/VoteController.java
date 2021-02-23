@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sicredi.voting.domain.dto.vote.request.VoteRequest;
 import br.com.sicredi.voting.domain.dto.vote.response.VoteResponse;
-import br.com.sicredi.voting.service.vote.VoteService;
+import br.com.sicredi.voting.service.VoteService;
 import lombok.AllArgsConstructor;
 
 @RestController

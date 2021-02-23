@@ -1,4 +1,4 @@
-package br.com.sicredi.voting.service.vote;
+package br.com.sicredi.voting.service;
 
 import javax.validation.Valid;
 

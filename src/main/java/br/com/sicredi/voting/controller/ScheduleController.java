@@ -14,7 +14,7 @@ import br.com.sicredi.voting.annotation.InsertSchedulePostCodeStandard;
 import br.com.sicredi.voting.annotation.ListScheduleGetCodeStandard;
 import br.com.sicredi.voting.domain.dto.schedule.request.ScheduleRequest;
 import br.com.sicredi.voting.domain.dto.schedule.response.ScheduleResponse;
-import br.com.sicredi.voting.service.schedule.ScheduleService;
+import br.com.sicredi.voting.service.ScheduleService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 

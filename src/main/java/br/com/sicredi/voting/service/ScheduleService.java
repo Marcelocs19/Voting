@@ -1,4 +1,4 @@
-package br.com.sicredi.voting.service.schedule;
+package br.com.sicredi.voting.service;
 
 import java.util.List;
 

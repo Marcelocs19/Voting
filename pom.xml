@@ -133,7 +133,12 @@
 					</execution>
 				</executions>
 				<configuration>
-					<excludes>						
+					<excludes>		
+						<exclude>br/com/sicredi/voting/annotation/*/**</exclude>
+						<exclude>br/com/sicredi/voting/configuration/*/**</exclude>
+						<exclude>br/com/sicredi/voting/exception/*/**</exclude>				
+						<exclude>br/com/sicredi/voting/domain/dto/*/**</exclude>
+						<exclude>br/com/sicredi/voting/domain/enums/*/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>

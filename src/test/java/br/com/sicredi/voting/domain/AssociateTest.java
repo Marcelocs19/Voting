@@ -24,7 +24,7 @@ public class AssociateTest {
         assertNotSame(a, b);
 		assertEquals(a.hashCode(), b.hashCode());
 		assertEquals(a.toString(), b.toString());
-		assertTrue(a.hashCode()== b.hashCode());
+		assertTrue(a.hashCode() == b.hashCode());
 		assertTrue(a.equals(b));
     }
 
