@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.sicredi.voting.annotation.InsertShedulePostCodeStandard;
+import br.com.sicredi.voting.annotation.InsertSchedulePostCodeStandard;
 import br.com.sicredi.voting.annotation.ListScheduleGetCodeStandard;
 import br.com.sicredi.voting.domain.dto.schedule.request.ScheduleRequest;
 import br.com.sicredi.voting.domain.dto.schedule.response.ScheduleResponse;
@@ -27,7 +27,7 @@ public class ScheduleController {
     private ScheduleService service;
 
     @PostMapping
-    @InsertShedulePostCodeStandard
+    @InsertSchedulePostCodeStandard
     public ResponseEntity<ScheduleResponse> insertSchedule(@RequestBody ScheduleRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insertSchedule(request));
     }
