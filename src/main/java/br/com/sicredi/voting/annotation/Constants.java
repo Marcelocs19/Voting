@@ -14,4 +14,6 @@ public class Constants {
     public static final String SESSION_LIST_SUMMARY="Listar sessões cadastradas";
     public static final String SESSION_LIST_DESCRIPTION="Ira listar as sessões cadastradas"; 
 
+    public static final String ASSOCIATE_INSERT_SUMMARY="Cadastrar um associado";
+    public static final String ASSOCIATE_INSERT_DESCRIPTION="Ira realizar o cadastro de um associado"; 
 }

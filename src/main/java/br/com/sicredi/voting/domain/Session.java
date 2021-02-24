@@ -3,7 +3,6 @@ package br.com.sicredi.voting.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +18,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.sicredi.voting.domain.dto.schedule.response.ScheduleResponse;
 import br.com.sicredi.voting.domain.dto.session.request.SessionRequest;
 import br.com.sicredi.voting.domain.dto.session.response.SessionResponse;
 import br.com.sicredi.voting.domain.enums.Status;

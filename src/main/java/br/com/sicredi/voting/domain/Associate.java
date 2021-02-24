@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.sicredi.voting.domain.dto.associate.request.AssociateRequest;
+import br.com.sicredi.voting.domain.dto.associate.response.AssociateResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -36,5 +38,13 @@ public class Associate {
 
     @OneToOne(mappedBy = "associate", cascade = CascadeType.ALL, optional = true)
     private Vote vote;
+
+    public static Associate of(AssociateRequest request) {
+        return Associate.builder().cpf(request.getCpf()).build();
+    }
+
+    public AssociateResponse toDto() {
+        return AssociateResponse.builder().associateId(this.associateId).cpf(this.cpf).build();
+    }
 
 }

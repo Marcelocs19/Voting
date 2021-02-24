@@ -49,7 +49,7 @@ public class Vote {
 
     public static Vote of(VoteRequest request, Associate associate, Schedule schedule) {
         return Vote.builder()
-        .answer((request.getAnswer().equals("S")) ? Answer.YES : Answer.NO)
+        .answer((request.getAnswer().equals("Sim")) ? Answer.YES : Answer.NO)
         .associate(associate)
         .schedule(schedule)
         .build();

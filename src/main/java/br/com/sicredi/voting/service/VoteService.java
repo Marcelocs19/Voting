@@ -1,5 +1,7 @@
 package br.com.sicredi.voting.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -56,8 +58,13 @@ public class VoteService {
             sessions.getSchedules().stream().filter(sh -> sh.getScheduleId().equals(request.getScheduleId()))
                     .findFirst().orElseThrow(Message.NOT_FOUND_SCHEDULE_AT_SESSION::asBusinessException);
 
-            var vote = voteRepository.save(Vote.of(request, associate, schedule));    
-            log.info("method = insertVote voteId = {}", vote.getVoteId());        
+            List<Vote> list = voteRepository.findByAssociateAndSchedule(associate, schedule);
+            if(list.isEmpty()) {
+                var vote = voteRepository.save(Vote.of(request, associate, schedule));    
+                log.info("method = insertVote voteId = {}", vote.getVoteId());        
+            } else {
+                throw Message.BAD_REQUEST_VOTE.asBusinessException();    
+            }
         } else {
             throw Message.BAD_REQUEST_VOTE.asBusinessException();
         }

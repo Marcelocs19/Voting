@@ -11,7 +11,8 @@ public enum Message {
     NOT_FOUND_VOTE("Cpf inválido", HttpStatus.NOT_FOUND),
     NOT_FOUND_SESSION("Sessão não encontrada", HttpStatus.NOT_FOUND),
     NOT_FOUND_SCHEDULE_AT_SESSION("Pauta não encontrada nessa sessão", HttpStatus.NOT_FOUND),
-    BAD_REQUEST_VOTE("Associado não pode votar", HttpStatus.BAD_REQUEST) ;
+    BAD_REQUEST_VOTE("Associado não pode votar", HttpStatus.BAD_REQUEST),
+	BAD_REQUEST_ASSOCIATE("Associado já cadastrado", HttpStatus.BAD_REQUEST);
 
     private String value;
 	private String description;
