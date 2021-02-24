@@ -1,6 +1,5 @@
 package br.com.sicredi.voting.domain.dto.session.response;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import br.com.sicredi.voting.domain.Schedule;
@@ -20,7 +19,7 @@ public class SessionResponse {
 
     private Long sessionId;
 
-    private LocalDateTime meetingDate;
+    private String meetingDate;
 
     private List<Schedule> schedule;
 

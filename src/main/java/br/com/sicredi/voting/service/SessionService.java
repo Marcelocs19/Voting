@@ -23,31 +23,46 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Slf4j
 public class SessionService {
-
+	
 	private SessionRepository sessionRepository;
-
+	
 	private ScheduleRepository scheduleRepository;
-
-	public List<SessionResponse> listAllOpenSessions() {
-		log.info("method = listAllOpenSessions");		
-		return sessionRepository.findByStatus(Status.OPEN).stream()
-				.map(session -> new SessionResponse(session.getSessionId(), session.getMeetingDate(),
-						session.getSchedules(), session.getDuration(), session.getStatus()))
-				.collect(Collectors.toList());
-
-	}
 	
 	public SessionResponse insertSession(@Valid SessionRequest request) {
 		var schedules = scheduleRepository.findAllById(request.getScheduleId());
-		
-		if(schedules.isEmpty()) {
+	
+		if (schedules.isEmpty()) {
 			throw Message.NOT_FOUND_SCHEDULE.asBusinessException();
 		}
-
+	
 		var session = Session.of(request, schedules);
 		var sessionResponse = sessionRepository.save(session).toDto();
 		log.info("method = insertSession sessionId = {}", sessionResponse.getSessionId());
 		return sessionResponse;
+	}
+
+	public SessionResponse insertScheduleInSession(Long sessionId, Long scheduleId) {
+		var schedule = scheduleRepository.findById(scheduleId)
+				.orElseThrow(Message.NOT_FOUND_SCHEDULE::asBusinessException);
+		var session = sessionRepository.findById(sessionId).orElseThrow(Message.NOT_FOUND_SESSION::asBusinessException);
+
+		if (!session.getSchedules().contains(schedule)) {
+			session.getSchedules().add(schedule);
+		} else {
+			throw Message.BAD_REQUEST_SCHEDULE.asBusinessException();
+		}
+		
+		var sessionUpdate = sessionRepository.save(session).toDto();
+		log.info("method = insertSession sessionId = {}", sessionUpdate.getSessionId());
+		return sessionUpdate;
+	}
+
+	public List<SessionResponse> listAllOpenSessions() {
+		log.info("method = listAllOpenSessions");		
+		return sessionRepository.findByStatus(Status.OPEN).stream()
+		.map(Session::toDto)
+				.collect(Collectors.toList());
+
 	}
 
 }

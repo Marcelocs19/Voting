@@ -1,6 +1,7 @@
 package br.com.sicredi.voting.domain;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,9 +77,10 @@ public class Session {
     }
 
     public SessionResponse toDto() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         return SessionResponse.builder()
         .sessionId(this.sessionId)
-        .meetingDate(this.meetingDate)
+        .meetingDate(formatter.format(this.meetingDate))
         .schedule(this.schedules)
         .duration(this.duration)
         .status(this.status)

@@ -70,7 +70,7 @@ public class Schedule {
     }
 
     public ScheduleResponse toDto() {
-        return ScheduleResponse.builder().scheduleId(this.scheduleId).subject(this.subject).title(this.title).build();
+        return ScheduleResponse.builder().scheduleId(this.scheduleId).subject(this.subject).title(this.title).totalAnswerYes(0).totalAnswerNo(0).build();
     }
 
     public static List<ScheduleResponse> toList(List<Schedule> schedules) {        

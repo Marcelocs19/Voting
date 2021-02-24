@@ -22,15 +22,15 @@ public class ScheduleService {
 
     private ScheduleRepository repository;
 
-	public List<ScheduleResponse> listAllSchedules() {
-        log.info("method = listAllSchedules");
-        return Schedule.toList(repository.findAll());
-	}
-
 	public ScheduleResponse insertSchedule(@Valid ScheduleRequest request) {
         var schedule = repository.save(Schedule.of(request));
         log.info("method = insertSchedule scheduleId = {}", schedule.getScheduleId());
 		return schedule.toDto();
 	}
+    
+    public List<ScheduleResponse> listAllSchedules() {
+        log.info("method = listAllSchedules");
+        return Schedule.toList(repository.findAll());
+    }
     
 }
