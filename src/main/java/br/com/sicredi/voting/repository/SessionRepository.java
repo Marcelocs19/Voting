@@ -1,4 +1,4 @@
-package br.com.sicredi.voting.repository.session;
+package br.com.sicredi.voting.repository;
 
 import java.util.List;
 

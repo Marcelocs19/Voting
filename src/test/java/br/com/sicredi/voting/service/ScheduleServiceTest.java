@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import br.com.sicredi.voting.feature.ScheduleScenarioFactory;
-import br.com.sicredi.voting.repository.schedule.ScheduleRepository;
+import br.com.sicredi.voting.repository.ScheduleRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ScheduleServiceTest {

@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import br.com.sicredi.voting.domain.Associate;
 import br.com.sicredi.voting.domain.dto.associate.request.AssociateRequest;
 import br.com.sicredi.voting.domain.dto.associate.response.AssociateResponse;
-import br.com.sicredi.voting.repository.associate.AssociateRepository;
+import br.com.sicredi.voting.repository.AssociateRepository;
 import br.com.sicredi.voting.validation.Message;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

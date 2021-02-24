@@ -29,6 +29,7 @@ public class SessionRequest {
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @NotNull(message = "O campo dateSession é obrigatório")
     private LocalDateTime date;
     
 }

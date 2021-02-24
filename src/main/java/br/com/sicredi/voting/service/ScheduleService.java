@@ -10,7 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import br.com.sicredi.voting.domain.Schedule;
 import br.com.sicredi.voting.domain.dto.schedule.request.ScheduleRequest;
 import br.com.sicredi.voting.domain.dto.schedule.response.ScheduleResponse;
-import br.com.sicredi.voting.repository.schedule.ScheduleRepository;
+import br.com.sicredi.voting.repository.ScheduleRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

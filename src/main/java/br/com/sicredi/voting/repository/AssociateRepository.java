@@ -1,4 +1,4 @@
-package br.com.sicredi.voting.repository.associate;
+package br.com.sicredi.voting.repository;
 
 import java.util.Optional;
 
