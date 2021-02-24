@@ -18,4 +18,15 @@ public class ScheduleResponse {
     private String title;
 
     private String subject;
+    
+    private Integer totalAnswerYes;
+    
+    private Integer totalAnswerNo;
+
+    public ScheduleResponse(Long scheduleId, String title, String subject) {
+        this.scheduleId = scheduleId;
+        this.title = title;
+        this.subject = subject;        
+    }
+    
 }

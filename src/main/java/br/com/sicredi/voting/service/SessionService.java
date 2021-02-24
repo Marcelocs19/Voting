@@ -14,6 +14,7 @@ import br.com.sicredi.voting.domain.dto.session.response.SessionResponse;
 import br.com.sicredi.voting.domain.enums.Status;
 import br.com.sicredi.voting.repository.schedule.ScheduleRepository;
 import br.com.sicredi.voting.repository.session.SessionRepository;
+import br.com.sicredi.voting.validation.Message;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +39,11 @@ public class SessionService {
 	
 	public SessionResponse insertSession(@Valid SessionRequest request) {
 		var schedules = scheduleRepository.findAllById(request.getScheduleId());
+		
+		if(schedules.isEmpty()) {
+			throw Message.NOT_FOUND_SCHEDULE.asBusinessException();
+		}
+
 		var session = Session.of(request, schedules);
 		var sessionResponse = sessionRepository.save(session).toDto();
 		log.info("method = insertSession sessionId = {}", sessionResponse.getSessionId());

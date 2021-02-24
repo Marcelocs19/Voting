@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.sicredi.voting.domain.dto.vote.request.VoteRequest;
 import br.com.sicredi.voting.domain.enums.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,17 +24,17 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@EqualsAndHashCode(of="voteId", callSuper = false)
+@EqualsAndHashCode(of = "voteId", callSuper = false)
 @Builder
 @Setter
-@Entity 
+@Entity
 @Table(name = "TB_VOTO")
 public class Vote {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CD_VOTO", nullable = false)
-	private Long voteId;
+    private Long voteId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "RESPOSTA", nullable = false)
@@ -46,5 +47,12 @@ public class Vote {
     @OneToOne
     private Associate associate;
 
-    
+    public static Vote of(VoteRequest request, Associate associate, Schedule schedule) {
+        return Vote.builder()
+        .answer((request.getAnswer().equals("S")) ? Answer.YES : Answer.NO)
+        .associate(associate)
+        .schedule(schedule)
+        .build();
+    }
+
 }

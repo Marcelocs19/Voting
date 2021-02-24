@@ -17,11 +17,11 @@ public class ScheduleScenarioFactory {
 
 
     private static Schedule loadSchedule() {
-        return new Schedule(1L, "Teste", "Teste", null, null);
+        return new Schedule(1L, "Teste", "Teste", null, null, 0, 0);
     }
 
     private static Schedule loadNewSchedule() {
-        return new Schedule(1L, "Teste2", "Teste2", null, null);
+        return new Schedule(1L, "Teste2", "Teste2", null, null, 0, 0);
     }
 
     private static Schedule loadScheduleBuilder() {

@@ -11,8 +11,6 @@ import br.com.sicredi.voting.domain.enums.Status;
 @Repository
 public interface SessionRepository extends JpaRepository<Session, Long> {
     
-    /* @Query(value = "SELECT new br.com.sicredi.voting.domain.dto.session.response.SessionResponse(s.sessionId, s.meetingDate, s.schedules, s.duration, s.status) FROM Session s")
-    List<SessionResponse> findAllSessionsOpen();  */
-    
     List<Session> findByStatus(Status status);
+
 }

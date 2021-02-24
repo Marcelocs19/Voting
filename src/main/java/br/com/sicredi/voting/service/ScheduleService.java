@@ -24,7 +24,7 @@ public class ScheduleService {
 
 	public List<ScheduleResponse> listAllSchedules() {
         log.info("method = listAllSchedules");
-        return repository.findAllSchedules();
+        return Schedule.toList(repository.findAll());
 	}
 
 	public ScheduleResponse insertSchedule(@Valid ScheduleRequest request) {
@@ -32,7 +32,5 @@ public class ScheduleService {
         log.info("method = insertSchedule scheduleId = {}", schedule.getScheduleId());
 		return schedule.toDto();
 	}
-
-	
     
 }
