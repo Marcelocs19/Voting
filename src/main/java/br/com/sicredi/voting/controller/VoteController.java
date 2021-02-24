@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.sicredi.voting.domain.dto.vote.request.VoteRequest;
 import br.com.sicredi.voting.domain.dto.vote.response.VoteResponse;
 import br.com.sicredi.voting.service.VoteService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/votes")
+@Tag(name = "Votes")
 @AllArgsConstructor
 public class VoteController {
 

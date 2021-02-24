@@ -36,6 +36,21 @@ public class VoteService {
 
     public VoteResponse insertVote(@Valid VoteRequest request) {
         RestTemplate restTemplate = new RestTemplate();
+
+        var session = sessionRepository.findById(request.getSessionId())
+                .orElseThrow(Message.NOT_FOUND_SESSION::asBusinessException);
+
+        if (!session.checkSchedule()) {
+            sessionRepository.save(session);
+            throw Message.BAD_REQUEST_SCHEDULE_CLOSED.asBusinessException();
+        }
+
+        var schedule = scheduleRepository.findById(request.getScheduleId())
+                .orElseThrow(Message.NOT_FOUND_SCHEDULE::asBusinessException);
+
+        var associate = associateRepository.findByCpf(request.getCpf())
+                .orElseThrow(Message.NOT_FOUND_ASSOCIATE::asBusinessException);
+
         ResponseEntity<String> response;
         try {
             response = restTemplate.getForEntity("https://user-info.herokuapp.com/users/" + request.getCpf(),
@@ -46,24 +61,15 @@ public class VoteService {
 
         String body = response.getBody();
         if (body.contains("ABLE_TO_VOTE")) {
-            var associate = associateRepository.findByCpf(request.getCpf())
-                    .orElseThrow(Message.NOT_FOUND_ASSOCIATE::asBusinessException);
-
-            var schedule = scheduleRepository.findById(request.getScheduleId())
-                    .orElseThrow(Message.NOT_FOUND_SCHEDULE::asBusinessException);
-
-            var sessions = sessionRepository.findById(request.getSessionId())
-                    .orElseThrow(Message.NOT_FOUND_SESSION::asBusinessException);
-                    
-            sessions.getSchedules().stream().filter(sh -> sh.getScheduleId().equals(request.getScheduleId()))
-                    .findFirst().orElseThrow(Message.NOT_FOUND_SCHEDULE_AT_SESSION::asBusinessException);
+            session.getSchedules().stream().filter(sh -> sh.getScheduleId().equals(request.getScheduleId())).findFirst()
+                    .orElseThrow(Message.NOT_FOUND_SCHEDULE_AT_SESSION::asBusinessException);
 
             List<Vote> list = voteRepository.findByAssociateAndSchedule(associate, schedule);
-            if(list.isEmpty()) {
-                var vote = voteRepository.save(Vote.of(request, associate, schedule));    
-                log.info("method = insertVote voteId = {}", vote.getVoteId());        
+            if (list.isEmpty()) {
+                var vote = voteRepository.save(Vote.of(request, associate, schedule));
+                log.info("method = insertVote voteId = {}", vote.getVoteId());
             } else {
-                throw Message.BAD_REQUEST_VOTE.asBusinessException();    
+                throw Message.BAD_REQUEST_VOTE.asBusinessException();
             }
         } else {
             throw Message.BAD_REQUEST_VOTE.asBusinessException();

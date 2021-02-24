@@ -31,24 +31,24 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of="sessionId", callSuper = false)
+@EqualsAndHashCode(of = "sessionId", callSuper = false)
 @Setter
 @Getter
 @Builder
-@Entity 
+@Entity
 @Table(name = "TB_SESSAO")
 public class Session {
-    
+
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CD_SESSAO", nullable = false)
-	private Long sessionId;
+    private Long sessionId;
 
     @Column(name = "DATA_SESSAO")
     private LocalDateTime meetingDate;
-    
-	@JsonIgnore
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)    
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Schedule> schedules;
 
     @Column(name = "DURACAO", nullable = false)
@@ -58,13 +58,9 @@ public class Session {
     @Column(name = "STATUS", nullable = false)
     private Status status;
 
-    public static Session of(SessionRequest request, List<Schedule> schedule) {        
-        Session session = Session.builder()
-        .duration(request.getDuration())
-        .meetingDate(request.getDate())
-        .status(Status.OPEN)
-        .schedules(new ArrayList<>())
-        .build();
+    public static Session of(SessionRequest request, List<Schedule> schedule) {
+        Session session = Session.builder().duration((request.getDuration() == null) ? 1L : request.getDuration())
+                .meetingDate(LocalDateTime.now()).status(Status.OPEN).schedules(new ArrayList<>()).build();
         session.addSchedule(schedule);
         return session;
     }
@@ -78,12 +74,22 @@ public class Session {
 
     public SessionResponse toDto() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        return SessionResponse.builder()
-        .sessionId(this.sessionId)
-        .meetingDate(formatter.format(this.meetingDate))
-        .schedule(this.schedules)
-        .duration(this.duration)
-        .status(this.status)
-        .build();
+        return SessionResponse.builder().sessionId(this.sessionId).meetingDate(formatter.format(this.meetingDate))
+                .schedule(this.schedules).duration(this.duration).status(this.status).build();
+    }
+
+    public boolean checkSchedule() {
+        boolean check = true;
+        LocalDateTime plusMinutes = this.meetingDate.plusMinutes(this.duration);
+        if (plusMinutes.isBefore(LocalDateTime.now())) {
+            this.status = Status.CLOSE;
+            check = false;
+        }
+        return check;
+    }
+
+    public static List<Session> checkListSessions(List<Session> sessions) {
+        sessions.forEach(Session::checkSchedule);
+        return sessions;
     }
 }

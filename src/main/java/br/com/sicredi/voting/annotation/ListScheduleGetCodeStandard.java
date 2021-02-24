@@ -1,6 +1,5 @@
 package br.com.sicredi.voting.annotation;
 
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,9 +17,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @Target({ ElementType.METHOD, ElementType.ANNOTATION_TYPE, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @ApiResponses(value = {
-		@ApiResponse(responseCode = "200", description = "Retorna lista das pautas", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = ScheduleResponse.class))),
-		@ApiResponse(responseCode = "500", description = "Sistema indisponível",content=@Content(mediaType = MediaType.APPLICATION_JSON_VALUE)) })
+		@ApiResponse(responseCode = "200", description = "Retorna lista todas as pautas", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ScheduleResponse.class))),
+		@ApiResponse(responseCode = "500", description = "Sistema indisponível", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)) })
 @Operation(summary = Constants.SCHEDULE_LIST_SUMMARY, description = Constants.SCHEDULE_LIST_DESCRIPTION)
 public @interface ListScheduleGetCodeStandard {
-    
+
 }
