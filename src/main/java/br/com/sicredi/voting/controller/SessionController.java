@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sicredi.voting.annotation.InsertSessionPostCodeStandard;
 import br.com.sicredi.voting.annotation.ListScheduleGetCodeStandard;
+import br.com.sicredi.voting.annotation.SessionGetCodeStandard;
 import br.com.sicredi.voting.domain.dto.session.request.SessionRequest;
 import br.com.sicredi.voting.domain.dto.session.response.SessionResponse;
 import br.com.sicredi.voting.service.SessionService;
@@ -40,6 +41,7 @@ public class SessionController {
     }
 
     @GetMapping
+    @SessionGetCodeStandard
     public ResponseEntity<SessionResponse> getSession(@RequestParam(required = true) Long sessionId) {
         return ResponseEntity.status(HttpStatus.OK).body(service.getSession(sessionId));
     }
