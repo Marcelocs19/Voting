@@ -27,7 +27,6 @@ public class AssocieteServiceTest {
     @Mock
     AssociateRepository repository;
 
-
     @Test
     public void insertAssociate_WhenVoteRequestIsValid_ExpectedOk() {     
         when(repository.findByCpf(any())).thenReturn(Optional.empty());

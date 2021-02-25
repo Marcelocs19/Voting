@@ -31,4 +31,10 @@ public class ScheduleServiceTest {
         verify(repository,times(1)).save(any());
     }
 
+    @Test
+    public void listAllSchedules_WhenSchedulesRequestIsValid_ExpectedOk() {        
+        assertNotNull(service.listAllSchedules());
+        verify(repository,times(1)).findAll();
+    }
+
 }

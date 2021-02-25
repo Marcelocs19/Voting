@@ -19,6 +19,10 @@ public class SessionScenarioFactory {
     public static final Session SESSION_GET = loadSessionGet();
     public static final SessionResponse SESSION_RESPONSE = loadSessionResponse();
     public static final Session SESSION_OF = loadScheduleOf();    
+    public static final Long SESSION_ID = 1L;
+    public static final Session SESSION_INSERT = loadSessionInsert();
+    public static final SessionRequest SESSION_REQUEST = loadSessionRequest();   
+    public static final List<Schedule> SCHEDULE_LIST = loadScheduleList(); 
 
     private static Session loadSession() {
         List<Schedule> list = new ArrayList<>();
@@ -76,6 +80,25 @@ public class SessionScenarioFactory {
         List<Schedule> list = new ArrayList<>();
         list.add(ScheduleScenarioFactory.SCHEDULE);
         return Session.of(request, list);
+    }
+
+    private static Session loadSessionInsert() {
+        List<Schedule> list = new ArrayList<>();
+        list.add(ScheduleScenarioFactory.SCHEDULE_SAVE);
+        return new Session(1L, LocalDateTime.now(), list, 5L, Status.OPEN);
+    }
+
+    private static SessionRequest loadSessionRequest() {
+        List<Long> ids = new ArrayList<>();
+        ids.add(5L);
+        return SessionRequest.builder().duration(1L).scheduleId(ids).build();
+    }
+
+    private static List<Schedule> loadScheduleList() {
+        List<Schedule> schedules = new ArrayList<>();
+        Schedule schedule2 = new Schedule(5L, "Teste", "Teste", null , null, 0, 0);
+        schedules.add(schedule2);
+        return schedules;
     }
 
 }

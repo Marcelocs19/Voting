@@ -1,5 +1,8 @@
 package br.com.sicredi.voting.feature;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.sicredi.voting.domain.Schedule;
 import br.com.sicredi.voting.domain.dto.schedule.request.ScheduleRequest;
 import br.com.sicredi.voting.domain.dto.schedule.response.ScheduleResponse;
@@ -14,6 +17,8 @@ public class ScheduleScenarioFactory {
     public static final ScheduleResponse SCHEDULE_RESPONSE = loadScheduleResponse();
     public static final Schedule SCHEDULE_OF = loadScheduleOf();
     public static final ScheduleRequest SCHEDULE_REQUEST = loadScheduleRequest();
+    public static final Schedule SCHEDULE_INSERT = loadScheduleInsert();
+    public static final Schedule SCHEDULE_SAVE = loadScheduleSave();
 
 
     private static Schedule loadSchedule() {
@@ -67,4 +72,20 @@ public class ScheduleScenarioFactory {
     private static ScheduleRequest loadScheduleRequest() {
         return ScheduleRequest.builder().title("Teste").subject("Teste").build();
     }
+
+    public static List<Schedule> loadList() {
+        List<Schedule> schedules = new ArrayList<>();
+        Schedule schedule2 = new Schedule(5L, "Teste", "Teste", null , null, 0, 0);
+        schedules.add(schedule2);
+        return schedules;
+    }
+
+    private static Schedule loadScheduleInsert() {
+        return new Schedule(1L, "Teste", "Teste", null , null, 0, 0);
+    }
+
+    private static Schedule loadScheduleSave() {
+        return new Schedule(1L, "Teste", "Teste", SessionScenarioFactory.SESSION_INSERT , null, 0, 0);
+    }
+
 }
