@@ -2,6 +2,7 @@ package br.com.sicredi.voting.feature;
 
 import br.com.sicredi.voting.domain.Associate;
 import br.com.sicredi.voting.domain.dto.associate.request.AssociateRequest;
+import br.com.sicredi.voting.domain.dto.associate.response.AssociateResponse;
 
 public class AssociateScenarioFactory {
     
@@ -11,6 +12,7 @@ public class AssociateScenarioFactory {
     public static final Associate ASSOCIATE_SET = loadAssociateSet();
     public static final Associate ASSOCIATE_GET = loadAssociateGet();
     public static final AssociateRequest ASSOCIATE_REQUEST = loadAssociateRequest();
+    public static final AssociateResponse ASSOCIATE_RESPONSE=loadAssociadoResponse();
 
     private static Associate loadAssociate() {
         return new Associate(1L, "58218785000", null);
@@ -46,5 +48,9 @@ public class AssociateScenarioFactory {
 
     private static AssociateRequest loadAssociateRequest() {
         return new AssociateRequest("58218785000");
+    }
+
+    private static AssociateResponse loadAssociadoResponse() {
+        return AssociateResponse.builder().cpf("58218785000").associateId(1L).build();
     }
 }

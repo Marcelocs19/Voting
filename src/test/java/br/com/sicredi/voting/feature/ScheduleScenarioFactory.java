@@ -19,6 +19,7 @@ public class ScheduleScenarioFactory {
     public static final ScheduleRequest SCHEDULE_REQUEST = loadScheduleRequest();
     public static final Schedule SCHEDULE_INSERT = loadScheduleInsert();
     public static final Schedule SCHEDULE_SAVE = loadScheduleSave();
+    public static final List<ScheduleResponse> SCHEDULE_RESPONSES_LIST=loadScheduleResponseList();
 
 
     private static Schedule loadSchedule() {
@@ -86,6 +87,12 @@ public class ScheduleScenarioFactory {
 
     private static Schedule loadScheduleSave() {
         return new Schedule(1L, "Teste", "Teste", SessionScenarioFactory.SESSION_INSERT , null, 0, 0);
+    }
+
+    private static List<ScheduleResponse> loadScheduleResponseList() {
+        ArrayList<ScheduleResponse> list = new ArrayList<>();
+        list.add(SCHEDULE_RESPONSE);
+        return list;
     }
 
 }

@@ -2,6 +2,7 @@ package br.com.sicredi.voting.feature;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import br.com.sicredi.voting.domain.Schedule;
@@ -18,11 +19,13 @@ public class SessionScenarioFactory {
     public static final Session SESSION_SET = loadSessionSet();
     public static final Session SESSION_GET = loadSessionGet();
     public static final SessionResponse SESSION_RESPONSE = loadSessionResponse();
-    public static final Session SESSION_OF = loadScheduleOf();    
+    public static final Session SESSION_OF = loadScheduleOf();
     public static final Long SESSION_ID = 1L;
     public static final Session SESSION_INSERT = loadSessionInsert();
-    public static final SessionRequest SESSION_REQUEST = loadSessionRequest();   
-    public static final List<Schedule> SCHEDULE_LIST = loadScheduleList(); 
+    public static final SessionRequest SESSION_REQUEST = loadSessionRequest();
+    public static final List<Schedule> SCHEDULE_LIST = loadScheduleList();
+    public static final SessionResponse SESSION_RESPONSE_CONTROLLER = loadSessionResponseController();
+    public static final List<SessionResponse> SESSION_RESPONSE_LIST = loadSessionResponseList();
 
     private static Session loadSession() {
         List<Schedule> list = new ArrayList<>();
@@ -39,15 +42,10 @@ public class SessionScenarioFactory {
     private static Session loadSessionBuilder() {
         List<Schedule> list = new ArrayList<>();
         list.add(ScheduleScenarioFactory.SCHEDULE);
-        return Session.builder()
-        .sessionId(1L)
-        .meetingDate(LocalDateTime.now())
-        .schedules(list)
-        .duration(3L)
-        .status(Status.OPEN)
-        .build();
+        return Session.builder().sessionId(1L).meetingDate(LocalDateTime.now()).schedules(list).duration(3L)
+                .status(Status.OPEN).build();
     }
-    
+
     private static Session loadSessionSet() {
         List<Schedule> list = new ArrayList<>();
         list.add(ScheduleScenarioFactory.SCHEDULE);
@@ -72,7 +70,7 @@ public class SessionScenarioFactory {
 
     private static SessionResponse loadSessionResponse() {
         Session session = loadSession();
-        return session.toDto();        
+        return session.toDto();
     }
 
     private static Session loadScheduleOf() {
@@ -96,9 +94,21 @@ public class SessionScenarioFactory {
 
     private static List<Schedule> loadScheduleList() {
         List<Schedule> schedules = new ArrayList<>();
-        Schedule schedule2 = new Schedule(5L, "Teste", "Teste", null , null, 0, 0);
+        Schedule schedule2 = new Schedule(5L, "Teste", "Teste", null, null, 0, 0);
         schedules.add(schedule2);
         return schedules;
+    }
+
+    private static SessionResponse loadSessionResponseController() {
+        Schedule schedule = new Schedule(1L, "Teste", "Teste", null, new ArrayList<>(), 0, 0);
+        List<Schedule> list = new ArrayList<>();
+        list.add(schedule);
+        return new SessionResponse(1L, "2020-02-25T13:00:00", list, 1L, Status.OPEN);
+
+    }
+
+    private static List<SessionResponse> loadSessionResponseList() {
+        return Arrays.asList(SESSION_RESPONSE_CONTROLLER);
     }
 
 }
