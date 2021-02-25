@@ -1,26 +1,20 @@
 package br.com.sicredi.voting.service;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import br.com.sicredi.voting.validation.Message;
+import br.com.sicredi.voting.client.OpenFeignClient;
+import br.com.sicredi.voting.client.StatusVote;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class UserInfoService {
 
-    public boolean checkAssociateCanVote(String cpf) {
-        RestTemplate restTemplate = new RestTemplate();
+    private OpenFeignClient openFeign;
 
-        ResponseEntity<String> response;
-        try {
-            response = restTemplate.getForEntity("https://user-info.herokuapp.com/users/" + cpf,
-                    String.class);
-        } catch (Exception e) {
-            throw Message.NOT_FOUND_VOTE.asBusinessException();
-        }
-        String body = response.getBody();
-        if(body.contains("ABLE_TO_VOTE")) {
+    public boolean checkAssociateCanVote(String cpf) {
+        StatusVote canVote = openFeign.canVote(cpf);
+        if(canVote.getStatus().equals("ABLE_TO_VOTE")) {
             return true;
         } else {
             return false;
