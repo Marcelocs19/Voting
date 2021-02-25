@@ -44,15 +44,12 @@ public class VoteService {
 
         Schedule schedule = session.getSchedules().stream()
                 .filter(sc -> sc.getScheduleId().equals(request.getScheduleId())).findFirst()
-                .orElseThrow(Message.NOT_FOUND_SCHEDULE::asBusinessException);
+                .orElseThrow(Message.NOT_FOUND_SCHEDULE_AT_SESSION::asBusinessException);
 
         var associate = associateRepository.findByCpf(request.getCpf())
                 .orElseThrow(Message.NOT_FOUND_ASSOCIATE::asBusinessException);
 
-        if (userInfoService.checkAssociateCanVote(request.getCpf())) {
-            session.getSchedules().stream().filter(sh -> sh.getScheduleId().equals(request.getScheduleId())).findFirst()
-                    .orElseThrow(Message.NOT_FOUND_SCHEDULE_AT_SESSION::asBusinessException);
-
+        if (userInfoService.checkAssociateCanVote(request.getCpf())) {           
             List<Vote> list = voteRepository.findByAssociateAndSchedule(associate, schedule);
             if (list.isEmpty()) {
                 var vote = voteRepository.save(Vote.of(request, associate, schedule));

@@ -18,7 +18,7 @@ public class SessionScenarioFactory {
     public static final Session SESSION_SET = loadSessionSet();
     public static final Session SESSION_GET = loadSessionGet();
     public static final SessionResponse SESSION_RESPONSE = loadSessionResponse();
-    public static final Session SESSION_OF = loadScheduleOf();
+    public static final Session SESSION_OF = loadScheduleOf();    
 
     private static Session loadSession() {
         List<Schedule> list = new ArrayList<>();
