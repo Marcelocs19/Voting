@@ -34,6 +34,7 @@ https://github.com/Marcelocs19/Voting.git
 2. Trocar a senha do banco Postgre no arquivo application.properties;
 ```
 ```
+```
 
 
 ### Rodar a aplicação localmente
