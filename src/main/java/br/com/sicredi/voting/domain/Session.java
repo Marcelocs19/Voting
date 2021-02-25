@@ -92,4 +92,5 @@ public class Session {
         sessions.forEach(Session::checkSchedule);
         return sessions;
     }
+
 }

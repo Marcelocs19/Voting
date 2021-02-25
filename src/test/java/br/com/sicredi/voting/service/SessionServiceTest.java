@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.scheduling.TaskScheduler;
 
 import br.com.sicredi.voting.domain.Schedule;
 import br.com.sicredi.voting.exception.BusinessException;
@@ -32,6 +33,12 @@ public class SessionServiceTest {
 
     @Mock
 	ScheduleRepository scheduleRepository;
+
+    @Mock
+    TaskScheduler taskScheduler;
+
+    @Mock
+    CloseSessionService closeSession;
     
     @Test
     public void getSession_WhenSessionRequestIsValid_ExpectedOk() {

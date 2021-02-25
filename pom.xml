@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>br.com.sicredi.voting</groupId>
 	<artifactId>voting</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>voting</name>
 	<description>Sicredi Challenge</description>
 	<properties>
@@ -76,13 +76,15 @@
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.5.2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 			<version>3.0.1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -190,6 +192,13 @@
 						<exclude>br/com/sicredi/voting/exception/*/**</exclude>
 						<exclude>br/com/sicredi/voting/domain/dto/*/**</exclude>
 						<exclude>br/com/sicredi/voting/domain/enums/*/**</exclude>
+						<exclude>br/com/sicredi/voting/message/*/**</exclude>
+						<exclude>br/com/sicredi/voting/validation/*/**</exclude>
+						<exclude>br/com/sicredi/voting/job/*/**</exclude>
+						<exclude>br/com/sicredi/voting/client/*/**</exclude>
+						<exclude>br/com/sicredi/voting/service/CloseSessionService.*</exclude>
+						<exclude>br/com/sicredi/voting/service/UserInfoService.*</exclude>
+						<exclude>br/com/sicredi/voting/VotingApplication.*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
