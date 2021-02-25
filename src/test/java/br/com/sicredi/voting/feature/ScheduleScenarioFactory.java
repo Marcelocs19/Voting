@@ -22,7 +22,7 @@ public class ScheduleScenarioFactory {
 
 
     private static Schedule loadSchedule() {
-        return new Schedule(1L, "Teste", "Teste", SessionScenarioFactory.SESSION, null, 0, 0);
+        return new Schedule(1L, "Teste", "Teste", null, null, 0, 0);
     }
 
     private static Schedule loadNewSchedule() {
